@@ -3,8 +3,8 @@ package ru.vasyukov.Hooks;
 import Custom.listeners.Listeners;
 import Custom.properties.TestData;
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -52,7 +52,7 @@ public class WebHooks {
     /**
      * перед каждым тестом (тут нет, open в тесте)
      */
-    @BeforeEach
+    @Before
     public void openBrowser() {
     }
 
@@ -60,7 +60,7 @@ public class WebHooks {
      * Закрытие браузера после каждого теста,
      * необходимо при повторе теста по параметризованным производителям
      */
-    @AfterEach
+    @After
     public void closeBrowser() {
         //closeWindow();  // holdBrowserOpen с этим не работает
         closeWebDriver();
