@@ -2,9 +2,9 @@ package Pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;
+import org.junit.Assert;
 
 import static com.codeborne.selenide.CollectionCondition.*;
-import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -170,8 +170,11 @@ public class PageYandexMarketChoice extends BasePage {
      * @return свой PO
      */
     public PageYandexMarketChoice checkSearchedArticlesName(String nameFactory) {
-            $$x(XPATH_SEARCHED_ARTICLES_TEXT).shouldBe(sizeGreaterThan(0))
-                    .excludeWith(text(nameFactory)).shouldBe(empty);
+        ElementsCollection list = $$x(XPATH_SEARCHED_ARTICLES_TEXT).shouldBe(sizeGreaterThan(0))
+                .excludeWith(text(nameFactory));  //.shouldBe(empty);
+        if (list.size() > 0) {
+            Assert.fail("Обнаружен производитель не '" + nameFactory + "': " + list.get(0).getText());
+        }
         return this;
     }
 
