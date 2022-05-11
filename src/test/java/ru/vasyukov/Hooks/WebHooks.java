@@ -13,7 +13,8 @@ import org.openqa.selenium.support.events.WebDriverListener;
 import static com.codeborne.selenide.WebDriverRunner.*;
 
 /**
- * Родительский класс для тестов (методы BeforeEach и AfterEach)
+ * Класс для хуков (методы Before и After для каждого теста)
+ * Настройка опций браузера и листенера выполняется один раз перед всеми тестами
  */
 public class WebHooks {
     /**
@@ -50,7 +51,8 @@ public class WebHooks {
     }
 
     /**
-     * перед каждым тестом (тут нет, open в тесте)
+     * перед каждым тестом (тут нет, open в тесте),
+     * но нужен для инициализации static
      */
     @Before
     public void openBrowser() {

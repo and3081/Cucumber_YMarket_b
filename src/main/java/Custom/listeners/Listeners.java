@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Класс трех вариантов листенеров для драйвера
+ * Класс трех вариантов листенеров
  */
 public class Listeners implements WebDriverListener {
     /**
@@ -30,10 +30,16 @@ public class Listeners implements WebDriverListener {
      */
     private static final String listenerAroundMethod = TestData.listener.listenerAroundMethod();
     /**
-     * Список методов для скриншотов из проперти
+     * Список методов для скриншотов из проперти (через запятую, например  click,setValue)
      */
     private static final String listenerMethodList = TestData.listener.listenerMethodList();
+    /**
+     * true- есть инфа в списке методов
+     */
     private static boolean isListenerMethodList = false;
+    /**
+     * Расшифровка списка методов из проперти
+     */
     private static List<String> MethodList;
     /**
      * Mode скриншотов для листенера с элементами из проперти

@@ -8,7 +8,13 @@ import io.cucumber.java.ru.*;
 
 import java.util.List;
 
+/**
+ * Класс определений для кукумбера
+ */
 public class YandexMarketSteps {
+    /**
+     * Page Object-ы страниц
+     */
     private static PageYandexSearch pageYandexSearch;
     private static PageYandexMarketMain pageYandexMarketMain;
     private static PageYandexMarketChoice pageYandexMarketChoice;
