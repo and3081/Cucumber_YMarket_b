@@ -8,8 +8,8 @@
     Тогда Проверяем title страницы Яндекс Маркет
 
   #noinspection NonAsciiCharacters
-  Сценарий: Проверка выборки товара по производителю на Яндекс Маркет
-    Затем Открываем каталог и раздел
+  Структура сценария: Проверка выборки товара по производителю <factory> на Яндекс Маркет
+    Когда Открываем каталог и раздел
       | Электроника |
     Тогда Проверяем заголовок раздела
       | Электроника |
@@ -17,22 +17,22 @@
       | Смартфоны   |
     Тогда Проверяем заголовок подраздела в крошках
       | Смартфоны   |
-    Затем Раскрываем перечень производителей, ищем и отмечаем нужного
-      | Apple        |
+    Затем Раскрываем перечень производителей, ищем и отмечаем <factory>
     И Выбираем количество просмотра
       | 48          |
-    Тогда Проверяем производителя на всех найденных страницах
-      | Apple        |
+    Тогда На всех найденных страницах проверяем производителя <factory>
 
-#  //        return Stream.of(arguments(listChapters, "Apple", countForOld));
-#  //                         arguments(listChapters, "Google", countForOld),
-#  //                         arguments(listChapters, "HONOR", countForOld),
-#  //                         arguments(listChapters, "HUAWEI", countForOld),
-#  //                         arguments(listChapters, "Nokia", countForOld),
-#  //                         arguments(listChapters, "OnePlus", countForOld),
-#  //                         arguments(listChapters, "OPPO", countForOld),
-#  //                         arguments(listChapters, "realme", countForOld),
-#  //                         arguments(listChapters, "Samsung", countForOld),
-#  //                         arguments(listChapters, "vivo", countForOld),
-#  //                         arguments(listChapters, "Xiaomi", countForOld),
-#  //                         arguments(listChapters, "ZTE", countForOld));
+  Примеры:
+  | factory |
+#  | Apple   |
+#  | Google  |
+#  | HONOR   |
+#  | HUAWEI  |
+#  | Nokia   |
+#  | OnePlus |
+#  | OPPO    |
+#  | realme  |
+#  | Samsung |
+  | vivo    |
+  | Xiaomi  |
+  | ZTE     |

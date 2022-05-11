@@ -34,7 +34,7 @@ public class YandexMarketSteps {
         pageYandexMarketMain.checkYandexMarketTitle("4");
     }
 
-    @Затем("^Открываем каталог и раздел$")
+    @Когда("^Открываем каталог и раздел$")
     public void openCatalogChapter (List<String> itemNameMenu) {
         pageYandexMarketMain.clickCatalogButton("5")
                 .clickItemCatalog("6", itemNameMenu.get(0));
@@ -56,11 +56,11 @@ public class YandexMarketSteps {
         pageYandexMarketChoice.checkNameInCrumbs("9", itemNameSubMenu.get(0));
     }
 
-    @Затем("^Раскрываем перечень производителей, ищем и отмечаем нужного$")
-    public void unfoldFactoriesAndMark (List<String> factory) {
+    @Затем("^Раскрываем перечень производителей, ищем и отмечаем ([^ ]+)")
+    public void unfoldFactoriesAndMark (String factory) {
         pageYandexMarketChoice.clickAllFactoriesButton("10")
-                .inputFactorySearch("11", factory.get(0))
-                .clickFactoryItemAndWait("12", factory.get(0));
+                .inputFactorySearch("11", factory)
+                .clickFactoryItemAndWait("12", factory);
     }
 
     @И("^Выбираем количество просмотра$")
@@ -68,8 +68,8 @@ public class YandexMarketSteps {
         pageYandexMarketChoice.selectChoiceCountViewAndWaitForOld("13", countForOld.get(0));
     }
 
-    @Тогда("^Проверяем производителя на всех найденных страницах$")
-    public void checkAllPages (List<String> factory) {
-        pageYandexMarketChoice.checkAllPagesArticlesName("14", factory.get(0));
+    @Тогда("^На всех найденных страницах проверяем производителя ([^ ]+)")
+    public void checkAllPages (String factory) {
+        pageYandexMarketChoice.checkAllPagesArticlesName("14", factory);
     }
 }
