@@ -28,7 +28,7 @@ public class WebHooks {
         if (listener != null) addListener(listener);
         if (TestData.props.headlessMode() != null) Configuration.headless = true;
         if (TestData.props.dontCloseBrowser() != null) Configuration.holdBrowserOpen = true;
-        if (TestData.props.remoutUrl() != null) Configuration.remote = TestData.props.remoutUrl();
+        if (TestData.props.remoteUrl() != null) Configuration.remote = TestData.props.remoteUrl();
 
         if ((TestData.props.typeBrowser() == null || TestData.props.typeBrowser().equals("chrome")) &&
                 TestData.props.webdriverChromeLocalPath() != null) {

@@ -38,6 +38,6 @@ public interface Props extends Config {
     @Key("headless.mode")
     String headlessMode();
 
-    @Key("remout.url")
-    String remoutUrl();
+    @Key("remote.url")
+    String remoteUrl();
 }
