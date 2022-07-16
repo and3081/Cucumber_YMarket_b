@@ -34,5 +34,5 @@
 #  | realme  |
 #  | Samsung |
   | vivo    |
-  | Xiaomi  |
-  | ZTE     |
+#  | Xiaomi  |
+#  | ZTE     |
