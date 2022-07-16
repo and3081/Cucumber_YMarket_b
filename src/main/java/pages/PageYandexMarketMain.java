@@ -16,11 +16,11 @@ public class PageYandexMarketMain extends BasePage {
     /**
      * xPath пункта 'Раздел/Подраздел' (подставляется) в меню каталога
      */
-    public String XPATH_ITEM_MENU = "//li//a[.//text()='REPLACEMENT']";
+    public String XPATH_ITEM_MENU = "//li//a[.//text()='{REPLACE}']";
     /**
      * xPath заголовка 'Раздела' (подставляется) после его открытия
      */
-    public String XPATH_HEAD_CHAPTER_CATALOG = "//div/h1[text()='REPLACEMENT']";
+    public String XPATH_HEAD_CHAPTER_CATALOG = "//div/h1[text()='{REPLACE}']";
 
     /**
      * Шаг Проверить title страницы
@@ -51,7 +51,7 @@ public class PageYandexMarketMain extends BasePage {
      */
     @Step("step {step}. Открыть в меню каталога '{itemNameMenu}'")  // step 6/8
     public PageYandexMarketMain clickItemCatalog(String step, String itemNameMenu) {
-        String path = XPATH_ITEM_MENU.replace("REPLACEMENT", itemNameMenu);
+        String path = XPATH_ITEM_MENU.replace("{REPLACE}", itemNameMenu);
         waitRealClick($x(path).shouldBe(visible, enabled), path);
         return this;
     }
@@ -64,7 +64,7 @@ public class PageYandexMarketMain extends BasePage {
      */
     @Step("step {step}. Проверить название открытого раздела '{itemNameMenu}'")  // step 7
     public PageYandexMarketMain checkHeadChapterCatalog(String step, String itemNameMenu) {
-        $x(XPATH_HEAD_CHAPTER_CATALOG.replace("REPLACEMENT", itemNameMenu)).shouldBe(visible);
+        $x(XPATH_HEAD_CHAPTER_CATALOG.replace("{REPLACE}", itemNameMenu)).shouldBe(visible);
         return this;
     }
 }

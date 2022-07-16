@@ -13,71 +13,40 @@ import static com.codeborne.selenide.Selenide.$x;
  * Page класс страницы Яндекс Маркет (выбор)
  */
 public class PageYandexMarketChoice extends BasePage {
-    /**
-     * Номер версии страницы: 1-старая, 2-новая
-     */
-    private int versionPage = 1;  // old version
+    private int versionPage = 2;
     /**
      * xPath меню 'Хлебные крошки'
      */
     public static final String XPATH_CRUMBS = "//a/span[./@itemprop]";
     /**
-     * xPath элемента для анализа версии страницы
-     */
-    public String XPATH_VERSION_PAGE = "//main[@aria-label='Результаты поиска']";
-    /**
      * xPath базовый блока выбора 'Производителей'
      */
     public String XPATH_BASE_FACTORIES = "//fieldset[.//legend[.//text()[contains(.,'Производитель')]]]";
     /**
-     * xPath кнопки 'Показать всё' производителей (версия 1)
+     * xPath кнопки 'Показать всё' производителей
      */
-    public String XPATH_ALL_FACTORIES_BUTTON_1 = XPATH_BASE_FACTORIES + "/footer/button";
+    public String XPATH_ALL_FACTORIES_BUTTON = XPATH_BASE_FACTORIES + "//span[@role='button']/span";
     /**
-     * xPath кнопки 'Показать всё' производителей (версия 2)
+     * xPath поля поиска производителей
      */
-    public String XPATH_ALL_FACTORIES_BUTTON_2 = XPATH_BASE_FACTORIES + "//span[@role='button']/span";
-    /**
-     * xPath поля поиска производителей (версия 1)
-     */
-    public String XPATH_FACTORIES_SEARCH_1 = XPATH_BASE_FACTORIES + "//input[@name='Поле поиска']";
-    /**
-     * xPath поля поиска производителей (версия 2)
-     */
-    public String XPATH_FACTORIES_SEARCH_2 = XPATH_BASE_FACTORIES + "//div[label[text()='Найти производителя']]//input";
+    public String XPATH_FACTORIES_SEARCH = XPATH_BASE_FACTORIES + "//div[label[text()='Найти производителя']]//input";
     /**
      * xPath итема в списке производителей
      */
     public String XPATH_FACTORIES_ITEM = XPATH_BASE_FACTORIES + "//label[.//input[@type='checkbox']]//span[text()]";
     /**
-     * xPath элемента для анализа появления и пропадания серого экрана (версия 1)
+     * xPath элемента для анализа появления и пропадания серого экрана
      */
-    public String XPATH_CHOICE_PROGRESS1 = "//div[@aria-label='Результаты поиска']/div";
-    /**
-     * xPath элемента для анализа появления и пропадания серого экрана (версия 2)
-     */
-    public String XPATH_CHOICE_PROGRESS2 = "//div[@aria-label='Результаты поиска']/parent::div/div";
-    /**
-     * xPath кнопки 'Показывать по' (версия 1)
-     */
-    public static final String XPATH_COUNT_ITEMS1 = "//button[.//span//text()[contains(.,'Показывать по')]]";
-    /**
-     * xPath опций кнопки 'Показывать по' (версия 1)
-     */
-    public static final String XPATH_COUNT_ITEMS_OPTIONS1 = XPATH_COUNT_ITEMS1 + "/following-sibling::div//button";
+    public String XPATH_CHOICE_PROGRESS = "//div[@aria-label='Результаты поиска']/parent::div/div";
     /**
      * xPath названий списка показанных товаров
      */
     public static final String XPATH_SEARCHED_ARTICLES_TEXT =
             "//div[@aria-label='Результаты поиска']//article//a[@title]//span[text()]";
     /**
-     * xPath меню пагинации (версия 1)
+     * xPath меню пагинации
      */
-    public String XPATH_PAGINATION_BUTTONS_1 = "//a[@aria-label[contains(.,'траница')]]";
-    /**
-     * xPath меню пагинации (версия 2)
-     */
-    public String XPATH_PAGINATION_BUTTONS_2 = "//div[@data-auto[contains(.,'pagination')]]";
+    public String XPATH_PAGINATION_BUTTONS = "//div[@data-auto[contains(.,'pagination')]]";
 
     /**
      * Шаг Проверить название открытого подраздела в крошках
@@ -89,7 +58,6 @@ public class PageYandexMarketChoice extends BasePage {
     public PageYandexMarketChoice checkNameInCrumbs(String step, String name) {
         $$x(XPATH_CRUMBS).shouldBe(sizeGreaterThanOrEqual(3)).get(2)
                 .should(be(visible), have(exactText(name)));
-        checkVersionPage();
         return this;
     }
 
@@ -100,8 +68,7 @@ public class PageYandexMarketChoice extends BasePage {
      */
     @Step("step {step}. Нажать кнопку производителей 'Показать всё'")  // step 10
     public PageYandexMarketChoice clickAllFactoriesButton(String step) {
-        String path = (versionPage==1) ? XPATH_ALL_FACTORIES_BUTTON_1 : XPATH_ALL_FACTORIES_BUTTON_2;
-        waitRealClick($x(path).shouldBe(visible, enabled), path);
+        waitRealClick($x(XPATH_ALL_FACTORIES_BUTTON).shouldBe(visible, enabled), XPATH_ALL_FACTORIES_BUTTON);
         return this;
     }
 
@@ -113,8 +80,7 @@ public class PageYandexMarketChoice extends BasePage {
      */
     @Step("step {step}. Ввести в поле выбора название производителя '{nameFactory}'")  // step 11
     public PageYandexMarketChoice inputFactorySearch(String step, String nameFactory) {
-        $x((versionPage==1) ? XPATH_FACTORIES_SEARCH_1 : XPATH_FACTORIES_SEARCH_2)
-                .shouldBe(visible, enabled).setValue(nameFactory).pressEnter();
+        $x(XPATH_FACTORIES_SEARCH).shouldBe(visible, enabled).setValue(nameFactory).pressEnter();
         return this;
     }
 
@@ -130,24 +96,6 @@ public class PageYandexMarketChoice extends BasePage {
                 .should(be(visible), be(enabled), have(exactText(nameFactory))),
                 XPATH_FACTORIES_ITEM);
         waitEndChoice();
-        return this;
-    }
-
-    /**
-     * Шаг (для старой версии) Выбрать количество просмотра и ожидать выборку
-     * @param step  номер шага для аллюра
-     * @param count количество просмотра
-     * @return свой PO
-     */
-    @Step("step {step}. (для старой версии) Выбрать количество просмотра '{count}' и ожидать выборку")  // step 13
-    public PageYandexMarketChoice selectChoiceCountViewAndWaitForOld(String step, String count) {
-        if (versionPage==1 && $$x(XPATH_COUNT_ITEMS1).size()>0) {  // м.не быть кнопки if все на 1 экране
-            waitRealClick($x(XPATH_COUNT_ITEMS1).shouldBe(visible, enabled), XPATH_COUNT_ITEMS1);
-            waitRealClick($$x(XPATH_COUNT_ITEMS_OPTIONS1).shouldBe(sizeGreaterThan(0))
-                    .findBy(text(count)).shouldBe(visible, enabled),
-                    XPATH_COUNT_ITEMS_OPTIONS1);
-            waitEndChoice();
-        }
         return this;
     }
 
@@ -186,13 +134,8 @@ public class PageYandexMarketChoice extends BasePage {
      */
     public boolean isClickButtonForwardAndWait() {
         ElementsCollection listFiltered;
-        if (versionPage == 1) {
-            listFiltered = $$x(XPATH_PAGINATION_BUTTONS_1)  //.shouldBe(sizeGreaterThan(0))
-                    .filterBy(attribute("aria-label", "Следующая страница"));
-        } else {
-            listFiltered = $$x(XPATH_PAGINATION_BUTTONS_2)  //.shouldBe(sizeGreaterThan(0))  м.не быть if 1 экран
-                    .filterBy(attribute("data-auto", "pagination-next"));
-        }
+        listFiltered = $$x(XPATH_PAGINATION_BUTTONS)  //.shouldBe(sizeGreaterThan(0))  м.не быть if 1 экран
+                .filterBy(attribute("data-auto", "pagination-next"));
         if (listFiltered.size()>0 && waitRealClick(listFiltered.get(0)
                 .scrollIntoView(false).shouldBe(visible, enabled), null)) {  // scroll тут на всяк, иначе иногда не попадает клик
             waitEndChoice();
@@ -206,35 +149,8 @@ public class PageYandexMarketChoice extends BasePage {
      * @return свой PO
      */
     public PageYandexMarketChoice waitEndChoice() {
-        if (versionPage == 1) {
-            // пример старая версия изменение выборки:
-            //   до:         у div aria-label='Результаты поиска' - 1 дочерний div
-            //   клик в выборке
-            //   серое окно: появляется доп.дочерний временный div (или несколько)
-            //   результат:  доп.временный div убирается, снова 1 дочерний div
-            $$x(XPATH_CHOICE_PROGRESS1).shouldBe(sizeGreaterThan(1));
-            $$x(XPATH_CHOICE_PROGRESS1).shouldBe(size(1));
-        } else {
-            // пример новая версия изменение выборки:
-            // аналогично, но доп. div появляется сестринский, а не дочерний
-            $$x(XPATH_CHOICE_PROGRESS2).shouldBe(sizeGreaterThan(1));
-            $$x(XPATH_CHOICE_PROGRESS2).shouldBe(size(1));
-        }
-        return this;
-    }
-
-    /**
-     * Анализ версии страницы, установка в переменной versionPage (и вывод в консоль)
-     * @return свой PO
-     */
-    public PageYandexMarketChoice checkVersionPage() {
-        if ($x(XPATH_VERSION_PAGE).should(exist).getAttribute("id") !=null) {
-//            should(be(exist), have(or("Запрос версии страницы",
-//                        attribute("data-grabber"), attribute("data-auto"))))
-//                .getAttribute("data-auto") !=null) {
-            versionPage = 2;  // new
-        }
-        System.out.println("версия: " + versionPage);
+        $$x(XPATH_CHOICE_PROGRESS).shouldBe(sizeGreaterThan(1));
+        $$x(XPATH_CHOICE_PROGRESS).shouldBe(size(1));
         return this;
     }
 }

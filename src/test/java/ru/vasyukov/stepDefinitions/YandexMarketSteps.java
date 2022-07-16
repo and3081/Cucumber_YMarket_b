@@ -69,13 +69,8 @@ public class YandexMarketSteps {
                 .clickFactoryItemAndWait("12", factory);
     }
 
-    @И("^Выбираем количество просмотра$")
-    public void choiceViewCount (List<String> countForOld) {
-        pageYandexMarketChoice.selectChoiceCountViewAndWaitForOld("13", countForOld.get(0));
-    }
-
     @Тогда("^На всех найденных страницах проверяем производителя ([^ ]+)")
     public void checkAllPages (String factory) {
-        pageYandexMarketChoice.checkAllPagesArticlesName("14", factory);
+        pageYandexMarketChoice.checkAllPagesArticlesName("13", factory);
     }
 }
