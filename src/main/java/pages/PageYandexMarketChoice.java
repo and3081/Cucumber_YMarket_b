@@ -24,7 +24,7 @@ public class PageYandexMarketChoice extends BasePage {
     /**
      * xPath элемента для анализа версии страницы
      */
-    public String XPATH_VERSION_PAGE = "//div[@aria-label='Результаты поиска']";
+    public String XPATH_VERSION_PAGE = "//main[@aria-label='Результаты поиска']";
     /**
      * xPath базовый блока выбора 'Производителей'
      */
@@ -228,10 +228,10 @@ public class PageYandexMarketChoice extends BasePage {
      * @return свой PO
      */
     public PageYandexMarketChoice checkVersionPage() {
-        if ($x(XPATH_VERSION_PAGE)
-                .should(be(exist), have(or("Запрос версии страницы",
-                        attribute("data-grabber"), attribute("data-auto"))))
-                .getAttribute("data-auto") !=null) {
+        if ($x(XPATH_VERSION_PAGE).should(exist).getAttribute("id") !=null) {
+//            should(be(exist), have(or("Запрос версии страницы",
+//                        attribute("data-grabber"), attribute("data-auto"))))
+//                .getAttribute("data-auto") !=null) {
             versionPage = 2;  // new
         }
         System.out.println("версия: " + versionPage);
