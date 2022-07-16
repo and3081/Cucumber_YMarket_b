@@ -1,6 +1,6 @@
-package Pages;
+package pages;
 
-import Custom.properties.TestData;
+import custom.properties.TestData;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -21,7 +21,7 @@ public class BasePage {
     /**
      * Значение явного ожидания ms из проперти
      */
-    public long timeoutExplicitMs = Long.parseLong(TestData.props.defaultTimeoutExplicitMs());
+    public long timeoutExplicitMs = Long.parseLong(TestData.browser.defaultTimeoutExplicitMs());
     /**
      * Объект явных ожиданий (для метода реального клика)
      */
@@ -65,7 +65,7 @@ public class BasePage {
      */
     @Step("step {step}. Открыть браузер и стартовую страницу Яндекс")  // step 1
     public static PageYandexSearch openFirstPageYandexSearch(String step) {
-        open(TestData.props.baseUrlYandex());
+        open(TestData.application.baseUrlYandex());
         maxWindow();
         return page(PageYandexSearch.class); }
 

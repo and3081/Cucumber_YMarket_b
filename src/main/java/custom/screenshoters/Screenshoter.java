@@ -1,4 +1,4 @@
-package Custom.Screenshoters;
+package custom.screenshoters;
 
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;

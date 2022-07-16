@@ -1,9 +1,9 @@
-package ru.vasyukov.StepDefinitions;
+package ru.vasyukov.stepDefinitions;
 
-import Pages.BasePage;
-import Pages.PageYandexMarketChoice;
-import Pages.PageYandexMarketMain;
-import Pages.PageYandexSearch;
+import pages.BasePage;
+import pages.PageYandexMarketChoice;
+import pages.PageYandexMarketMain;
+import pages.PageYandexSearch;
 import io.cucumber.java.ru.*;
 
 import java.util.List;

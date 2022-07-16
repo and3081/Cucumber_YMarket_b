@@ -1,4 +1,4 @@
-package Custom.properties;
+package custom.properties;
 
 import org.aeonbits.owner.Config;
 
