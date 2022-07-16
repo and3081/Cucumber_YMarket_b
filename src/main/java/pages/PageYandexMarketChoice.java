@@ -100,8 +100,8 @@ public class PageYandexMarketChoice extends BasePage {
      */
     @Step("step {step}. Нажать кнопку производителей 'Показать всё'")  // step 10
     public PageYandexMarketChoice clickAllFactoriesButton(String step) {
-        waitRealClick($x((versionPage==1) ? XPATH_ALL_FACTORIES_BUTTON_1 : XPATH_ALL_FACTORIES_BUTTON_2)
-                .shouldBe(visible, enabled));
+        String path = (versionPage==1) ? XPATH_ALL_FACTORIES_BUTTON_1 : XPATH_ALL_FACTORIES_BUTTON_2;
+        waitRealClick($x(path).shouldBe(visible, enabled), path);
         return this;
     }
 
@@ -127,7 +127,8 @@ public class PageYandexMarketChoice extends BasePage {
     @Step("step {step}. Поставить чекбокс производителя '{nameFactory}' и ожидать выборку")  // step 12
     public PageYandexMarketChoice clickFactoryItemAndWait(String step, String nameFactory) {
         waitRealClick($x(XPATH_FACTORIES_ITEM)
-                .should(be(visible), be(enabled), have(exactText(nameFactory))));
+                .should(be(visible), be(enabled), have(exactText(nameFactory))),
+                XPATH_FACTORIES_ITEM);
         waitEndChoice();
         return this;
     }
@@ -141,9 +142,10 @@ public class PageYandexMarketChoice extends BasePage {
     @Step("step {step}. (для старой версии) Выбрать количество просмотра '{count}' и ожидать выборку")  // step 13
     public PageYandexMarketChoice selectChoiceCountViewAndWaitForOld(String step, String count) {
         if (versionPage==1 && $$x(XPATH_COUNT_ITEMS1).size()>0) {  // м.не быть кнопки if все на 1 экране
-            waitRealClick($x(XPATH_COUNT_ITEMS1).shouldBe(visible, enabled));
+            waitRealClick($x(XPATH_COUNT_ITEMS1).shouldBe(visible, enabled), XPATH_COUNT_ITEMS1);
             waitRealClick($$x(XPATH_COUNT_ITEMS_OPTIONS1).shouldBe(sizeGreaterThan(0))
-                    .findBy(text(count)).shouldBe(visible, enabled));
+                    .findBy(text(count)).shouldBe(visible, enabled),
+                    XPATH_COUNT_ITEMS_OPTIONS1);
             waitEndChoice();
         }
         return this;
@@ -192,7 +194,7 @@ public class PageYandexMarketChoice extends BasePage {
                     .filterBy(attribute("data-auto", "pagination-next"));
         }
         if (listFiltered.size()>0 && waitRealClick(listFiltered.get(0)
-                .scrollIntoView(false).shouldBe(visible, enabled))) {  // scroll тут на всяк, иначе иногда не попадает клик
+                .scrollIntoView(false).shouldBe(visible, enabled), null)) {  // scroll тут на всяк, иначе иногда не попадает клик
             waitEndChoice();
             return true;
         }

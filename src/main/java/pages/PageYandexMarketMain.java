@@ -39,7 +39,7 @@ public class PageYandexMarketMain extends BasePage {
      */
     @Step("step {step}. Открыть каталог")  // step 5
     public PageYandexMarketMain clickCatalogButton(String step) {
-        waitRealClick($x(XPATH_BUTTON_CATALOG).shouldBe(visible, enabled));
+        waitRealClick($x(XPATH_BUTTON_CATALOG).shouldBe(visible, enabled), XPATH_BUTTON_CATALOG);
         return this;
     }
 
@@ -51,7 +51,8 @@ public class PageYandexMarketMain extends BasePage {
      */
     @Step("step {step}. Открыть в меню каталога '{itemNameMenu}'")  // step 6/8
     public PageYandexMarketMain clickItemCatalog(String step, String itemNameMenu) {
-        waitRealClick($x(XPATH_ITEM_MENU.replace("REPLACEMENT", itemNameMenu)).shouldBe(visible, enabled));
+        String path = XPATH_ITEM_MENU.replace("REPLACEMENT", itemNameMenu);
+        waitRealClick($x(path).shouldBe(visible, enabled), path);
         return this;
     }
 

@@ -31,7 +31,7 @@ public class PageYandexSearch extends BasePage {
      */
     @Step("step {step}. Перейти по иконке на Яндекс Маркет")  // step 3
     public PageYandexSearch clickYandexMarketAndSwitch(String step) {
-        waitRealClick($x(XPATH_ICON_YANDEX_MARKET).shouldBe(visible, enabled));
+        waitRealClick($x(XPATH_ICON_YANDEX_MARKET).shouldBe(visible, enabled), XPATH_ICON_YANDEX_MARKET);
         switchTo().window(TITLE_YANDEX_MARKET);
         return this;
     }
