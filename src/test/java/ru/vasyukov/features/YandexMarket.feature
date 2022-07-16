@@ -22,7 +22,7 @@
 
   Примеры:
   | factory |
-#  | Apple   |
+  | Apple   |
 #  | Google  |
 #  | HONOR   |
 #  | HUAWEI  |

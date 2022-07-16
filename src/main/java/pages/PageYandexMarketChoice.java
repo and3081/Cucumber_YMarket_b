@@ -13,7 +13,6 @@ import static com.codeborne.selenide.Selenide.$x;
  * Page класс страницы Яндекс Маркет (выбор)
  */
 public class PageYandexMarketChoice extends BasePage {
-    private int versionPage = 2;
     /**
      * xPath меню 'Хлебные крошки'
      */
@@ -21,32 +20,32 @@ public class PageYandexMarketChoice extends BasePage {
     /**
      * xPath базовый блока выбора 'Производителей'
      */
-    public String XPATH_BASE_FACTORIES = "//fieldset[.//legend[.//text()[contains(.,'Производитель')]]]";
+    private static final String XPATH_BASE_FACTORIES = "//fieldset[.//legend[.//text()[contains(.,'Производитель')]]]";
     /**
      * xPath кнопки 'Показать всё' производителей
      */
-    public String XPATH_ALL_FACTORIES_BUTTON = XPATH_BASE_FACTORIES + "//span[@role='button']/span";
+    private static final String XPATH_ALL_FACTORIES_BUTTON = XPATH_BASE_FACTORIES + "//span[@role='button']/span";
     /**
      * xPath поля поиска производителей
      */
-    public String XPATH_FACTORIES_SEARCH = XPATH_BASE_FACTORIES + "//div[label[text()='Найти производителя']]//input";
+    private static final String XPATH_FACTORIES_SEARCH = XPATH_BASE_FACTORIES + "//div[label[text()='Найти производителя']]//input";
     /**
      * xPath итема в списке производителей
      */
-    public String XPATH_FACTORIES_ITEM = XPATH_BASE_FACTORIES + "//label[.//input[@type='checkbox']]//span[text()]";
+    private static final String XPATH_FACTORIES_ITEM = XPATH_BASE_FACTORIES + "//label[.//input[@type='checkbox']]//span[text()]";
     /**
      * xPath элемента для анализа появления и пропадания серого экрана
      */
-    public String XPATH_CHOICE_PROGRESS = "//div[@aria-label='Результаты поиска']/parent::div/div";
+    private static final String XPATH_CHOICE_PROGRESS = "//main[@aria-label='Результаты поиска']/parent::div/div";
     /**
      * xPath названий списка показанных товаров
      */
-    public static final String XPATH_SEARCHED_ARTICLES_TEXT =
-            "//div[@aria-label='Результаты поиска']//article//a[@title]//span[text()]";
+    private static final String XPATH_SEARCHED_ARTICLES_TEXT =
+            "//main[@aria-label='Результаты поиска']//article//a[@title]//span[text()]";
     /**
      * xPath меню пагинации
      */
-    public String XPATH_PAGINATION_BUTTONS = "//div[@data-auto[contains(.,'pagination')]]";
+    private static final String XPATH_PAGINATION_BUTTONS = "//div[@data-auto[contains(.,'pagination')]]";
 
     /**
      * Шаг Проверить название открытого подраздела в крошках
@@ -101,12 +100,12 @@ public class PageYandexMarketChoice extends BasePage {
 
     /**
      * Шаг Проверить все найденные товары для производителя на всех страницах
-     *     (пока есть кнопка пагинации 'Вперед')
+     *     (пока есть кнопка пагинации 'Вперед', не более 100 переходов)
      * @param step        номер шага для аллюра
      * @param nameFactory наименование производителя
      * @return свой PO
      */
-    @Step("step {step}. Проверить все найденные товары для производителя '{factory}' на всех страницах")  // step 14
+    @Step("step {step}. Проверить все найденные товары для производителя '{nameFactory}' на всех страницах")  // step 14
     public PageYandexMarketChoice checkAllPagesArticlesName(String step, String nameFactory) {
         int i = 100;  // предохранитель
         do { checkSearchedArticlesName(nameFactory);
@@ -149,8 +148,8 @@ public class PageYandexMarketChoice extends BasePage {
      * @return свой PO
      */
     public PageYandexMarketChoice waitEndChoice() {
-        $$x(XPATH_CHOICE_PROGRESS).shouldBe(sizeGreaterThan(1));
-        $$x(XPATH_CHOICE_PROGRESS).shouldBe(size(1));
+        $$x(XPATH_CHOICE_PROGRESS).shouldBe(sizeGreaterThan(0));
+        $$x(XPATH_CHOICE_PROGRESS).shouldBe(size(0));
         return this;
     }
 }

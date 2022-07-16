@@ -12,7 +12,7 @@ public class PageYandexSearch extends BasePage {
     /**
      * xPath клик-иконки Яндекс Маркета
      */
-    public String XPATH_ICON_YANDEX_MARKET = "//a[@data-id='market']";
+    private static final String XPATH_ICON_YANDEX_MARKET = "//a[@data-id='market']";
 
     /**
      * Шаг Проверить title страницы

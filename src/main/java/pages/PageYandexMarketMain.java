@@ -12,15 +12,15 @@ public class PageYandexMarketMain extends BasePage {
     /**
      * xPath кнопки 'Каталог'
      */
-    public String XPATH_BUTTON_CATALOG = "//button[@id='catalogPopupButton']";
+    private static final String XPATH_BUTTON_CATALOG = "//button[@id='catalogPopupButton']";
     /**
      * xPath пункта 'Раздел/Подраздел' (подставляется) в меню каталога
      */
-    public String XPATH_ITEM_MENU = "//li//a[.//text()='{REPLACE}']";
+    private static final String XPATH_ITEM_MENU = "//li//a[.//text()='{REPLACE}']";
     /**
      * xPath заголовка 'Раздела' (подставляется) после его открытия
      */
-    public String XPATH_HEAD_CHAPTER_CATALOG = "//div/h1[text()='{REPLACE}']";
+    private static final String XPATH_HEAD_CHAPTER_CATALOG = "//div/h1[text()='{REPLACE}']";
 
     /**
      * Шаг Проверить title страницы
